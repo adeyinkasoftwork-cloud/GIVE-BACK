@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Saans — pulled from Onramper's Webflow CDN (weights 400 / 500 are the only ones the site loads) */
+@font-face {
+  font-family: "Saans";
+  src: url("https://cdn.prod.website-files.com/67a0d60e32c158a5f3186d6f/68c837dd7dd1ca0ca4f58f74_SaansRegular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saans";
+  src: url("https://cdn.prod.website-files.com/67a0d60e32c158a5f3186d6f/68c838741866b0f38fd17f8c_SaansMedium.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: "Saans", Arial, sans-serif;
+  color: #151515;
+  background-color: #ffffff;
+}
+
+/* Webflow base heading reset: tight line-heights, no margins.
+   h1 line-height 90% / 700; display headings use 100% / 500 per .heading-style-* */
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
