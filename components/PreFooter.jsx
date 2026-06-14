@@ -1,74 +1,41 @@
 import Container from "./Container";
 
-const FOOTER_LOGOS = [
-  "Gate.io",
-  "Cake Wallet",
-  "Bitcoin.com",
-  "Coinbase Wallet",
-  "Trust Wallet",
-  "Solflare",
-  "Kraken",
-];
-
-// .pre__footer { background-color:#0093ff; background-image:<blue avif>; min-height:555px;
-//                padding: 155px 0 }  — bright cyber-blue gradient with floating coins.
 export default function PreFooter() {
   return (
-    <section className="pre__footer section gradient-container relative overflow-hidden bg-onramp-blue">
-      {/* blue gradient backdrop (stands in for the pre-footer .avif) */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0093ff] via-cyber-blue-2 to-cyber-blue-1" />
+    <section className="bg-primary px-4 pb-sp-lg pt-sp-lg">
+      <Container className="!px-0">
+        <div className="relative mx-auto overflow-hidden rounded-[24px] border border-white/10 sm:rounded-[28px]"
+          style={{ background: "radial-gradient(120% 140% at 0% 100%, rgba(124,92,255,0.25) 0%, rgba(10,12,11,0.98) 45%, #060807 100%)" }}>
+          {/* gradient arc */}
+          <div className="pointer-events-none absolute right-[6%] top-[8%] h-[420px] w-[420px] rounded-full"
+            style={{ background: "conic-gradient(from 200deg, #20C854, #6AFF9E, #f0c000, transparent 60%)", filter: "blur(2px)", opacity: 0.5, mask: "radial-gradient(closest-side, transparent 78%, #000 80%)", WebkitMask: "radial-gradient(closest-side, transparent 78%, #000 80%)" }} />
 
-      {/* floating coin blobs — Lottie/3D placeholders */}
-      <div
-        data-placeholder="pre-footer-coin-tl"
-        className="absolute -left-[60px] top-[40px] h-[260px] w-[260px] rounded-full bg-cyber-blue-3/40 blur-[2px]"
-      />
-      <div
-        data-placeholder="pre-footer-coin-br"
-        className="absolute -right-[40px] bottom-[20px] h-[300px] w-[300px] rounded-full bg-vibrant-teal-1/30 blur-[2px]"
-      />
+          <div className="relative grid grid-cols-1 items-center gap-6 p-6 sm:p-10 md:p-16 lg:grid-cols-2 lg:gap-8">
+            {/* Left copy */}
+            <div>
+              <h2 className="font-saans text-[32px] font-bold leading-[1.02] tracking-[-1.4px] text-white sm:text-[44px] md:text-[64px]">
+                Join the Movement
+              </h2>
+              <p className="mt-4 max-w-[440px] font-body text-[15px] leading-[1.6] text-white/65 sm:mt-5 sm:text-[18px]">
+                Become part of a global community committed to feeding families, supporting shelters, and responding to crises with full transparency.
+              </p>
+              <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
+                <a href="/pages/how-to-buy" className="flex min-h-[48px] items-center justify-center rounded-full bg-white px-7 py-3.5 font-body text-[15px] font-bold text-primary transition-transform duration-300 hover:-translate-y-0.5 sm:min-h-0 sm:text-[16px]">
+                  Buy $GBACK
+                </a>
+                <a href="/pages/impact" className="flex min-h-[48px] items-center justify-center rounded-full btn-glass px-7 py-3.5 font-body text-[15px] font-bold text-white sm:min-h-0 sm:text-[16px]">
+                  Explore Impact
+                </a>
+              </div>
+            </div>
 
-      <Container className="relative z-10">
-        <div className="pre__footer-copy py-[40px]">
-          {/* heading-style-h2 scale, white */}
-          <h2 className="font-saans text-[56px] font-medium leading-[100%] tracking-[-1.8px] text-white md:text-[90px] lg:text-[110px]">
-            Plug. Play. Prosper.
-          </h2>
-
-          <p className="mt-[32px] max-w-[600px] text-[22px] leading-[140%] tracking-[-0.4px] text-white">
-            Empower your users with 30+ onramps and 175+ payment options, all in
-            just eight lines of code.
-          </p>
-
-          <div className="mt-sp-lg flex flex-col items-start gap-[24px]">
-            <p className="font-saans text-[34px] font-medium leading-[110%] tracking-[-0.8px] text-white md:text-[44px]">
-              Limited-time offer |&nbsp;try 14 days free
-            </p>
-            <a
-              href="#"
-              className="rounded-button bg-off-black px-[34px] py-[20px] text-[20px] font-medium leading-[110%] tracking-[-0.2px] text-white transition-opacity hover:opacity-90"
-            >
-              Get Started
-            </a>
+            {/* Right: spinning dotted globe (desktop only) */}
+            <div className="relative hidden h-[360px] items-center justify-center lg:flex">
+              <div className="dotted-globe" />
+            </div>
           </div>
         </div>
       </Container>
-
-      {/* bottom logo marquee */}
-      <div className="pre__footer-marquee-wrap relative z-10 border-t border-white/15 py-sp-sm">
-        <Container>
-          <div className="flex flex-wrap items-center justify-between gap-x-[40px] gap-y-[20px]">
-            {FOOTER_LOGOS.map((name) => (
-              <span
-                key={name}
-                className="whitespace-nowrap text-[22px] font-bold tracking-[-0.4px] text-white"
-              >
-                {name}
-              </span>
-            ))}
-          </div>
-        </Container>
-      </div>
     </section>
   );
 }

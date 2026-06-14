@@ -1,13 +1,12 @@
 import Container from "./Container";
 
 const TAGS = [
-  "Payment method",
-  "Amount",
-  "Cryptocurrency",
-  "KYC",
-  "Country",
-  "Fiat currency",
-  "User risk profile",
+  "On-chain wallets",
+  "Public reserves",
+  "Community votes",
+  "Verified on Solana",
+  "Liquidity locked",
+  "1B total supply",
 ];
 
 // The original pins this section and scrubs through several frames
@@ -20,23 +19,23 @@ export default function OnrampRouting() {
       data-placeholder="gsap-scroll-pinned-section"
       className="pin-spacer relative bg-pearl"
     >
-      <div className="onramp flex min-h-[100vh] items-center py-sp-xxl">
+      <div className="onramp flex min-h-[100vh] items-center py-sp-lg lg:py-sp-xxl">
         <Container>
           <div className="onramp_lottie-content-wrap mx-auto max-w-[820px] text-center">
             {/* 2x badge */}
             <div className="mx-auto mb-[28px] flex h-[120px] w-[120px] items-center justify-center rounded-card bg-off-black">
-              <span className="font-saans text-[56px] font-medium leading-none tracking-[-1.8px] text-white">
-                2x
+              <span className="font-saans text-[40px] font-bold leading-none tracking-[-1.2px] text-white">
+                50%+
               </span>
             </div>
 
             {/* heading */}
-            <h2 className="font-saans text-[40px] font-medium leading-[105%] tracking-[-1.2px] text-off-black md:text-[56px] lg:text-[64px]">
-              your volumes with smart APM and ramp recommendations
+            <h2 className="font-saans text-[30px] font-bold leading-[102%] tracking-[-1.2px] text-off-black sm:text-[40px] md:text-[56px] lg:text-[64px]">
+of every transaction goes to humanitarian aid
             </h2>
             <p className="mx-auto mt-[24px] max-w-[560px] text-[18px] leading-[150%] tracking-[-0.2px] text-body-copy">
-              Serve the best ramps to each individual user, with dynamic
-              recommendations based on conversion, price, and KYC friction.
+              Direct funding for meals, shelters, and disaster relief, with
+              every donation, wallet, and reserve fully visible on-chain.
             </p>
 
             {/* signal tags */}
@@ -44,7 +43,7 @@ export default function OnrampRouting() {
               {TAGS.map((t) => (
                 <span
                   key={t}
-                  className="rounded-button border border-[#dcdce4] bg-white px-[20px] py-[12px] text-[16px] font-medium tracking-[-0.2px] text-off-black"
+                  className="rounded-button border border-[#dcdce4] bg-white px-[20px] py-[12px] text-[15px] font-bold tracking-[-0.2px] text-off-black sm:text-[16px]"
                 >
                   {t}
                 </span>

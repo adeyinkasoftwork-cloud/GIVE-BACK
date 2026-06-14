@@ -1,16 +1,19 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import GlobeHero from "@/components/GlobeHero";
 import LogoMarquee from "@/components/LogoMarquee";
-import ValueCards from "@/components/ValueCards";
+import WhyBelieve from "@/components/WhyBelieve";
 import GlobeSection from "@/components/GlobeSection";
 import ProductsGrid from "@/components/ProductsGrid";
-import OnrampRouting from "@/components/OnrampRouting";
+import LiveMetrics from "@/components/LiveMetrics";
 import Partners from "@/components/Partners";
+import PartnersGrid from "@/components/PartnersGrid";
 import Faq from "@/components/Faq";
-import PreFooter from "@/components/PreFooter";
+import EcosystemFund from "@/components/EcosystemFund";
+import Socials from "@/components/Socials";
 import Footer from "@/components/Footer";
 
-// Nested structure preserved per section — composed top to bottom in the
+// Nested structure preserved per section, composed top to bottom in the
 // order specified. Each section is its own component (one per section).
 export default function Home() {
   return (
@@ -18,14 +21,17 @@ export default function Home() {
       <Header />
       <main className="main-wrapper">
         <Hero />
+        <GlobeHero />
+        <LiveMetrics />
         <LogoMarquee />
-        <ValueCards />
+        <WhyBelieve />
         <GlobeSection />
         <ProductsGrid />
-        <OnrampRouting />
+        <PartnersGrid />
         <Partners />
         <Faq />
-        <PreFooter />
+        <EcosystemFund />
+        <Socials />
       </main>
       <Footer />
     </div>

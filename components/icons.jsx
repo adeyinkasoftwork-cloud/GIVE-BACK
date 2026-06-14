@@ -1,39 +1,47 @@
-// Exact SVG paths lifted from Onramper's asset files (logo-mark.svg, icon-nav-arrow.svg, arrow.svg).
+import Image from "next/image";
 
-export function LogoMark({ className = "", fill = "#151515" }) {
+// Small circular mark used as a bullet/accent (kept for ProductsGrid).
+export function LogoMark({ className = "", fill = "#0D232B" }) {
   return (
     <svg
-      width="48"
-      height="27"
-      viewBox="0 0 48 27"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
+      <circle cx="10" cy="10" r="8" stroke={fill} strokeWidth="2" />
       <path
-        d="M34.9929 0.988281C42.1317 0.988281 47.9171 6.72233 47.9171 13.7978C47.9171 20.8733 42.1317 26.5606 34.9929 26.5606H12.877C5.73816 26.5597 0 20.8724 0 13.7978C0 6.7232 5.73816 0.988281 12.877 0.988281H34.9929ZM25.8003 13.7978C25.8003 18.8846 29.8598 22.8612 34.9912 22.8612C40.1226 22.8612 44.182 18.8846 44.182 13.7978C44.182 8.7111 40.0762 4.68851 34.9912 4.68851C29.9061 4.68851 25.8003 8.75789 25.8003 13.7978ZM22.1142 13.7978C22.1142 10.2371 23.5603 7.0005 25.893 4.68851H23.9336C18.8014 4.68851 14.7428 8.75789 14.7428 13.7978C14.7428 18.8378 18.6152 22.6766 23.5612 22.8612H25.8939C23.5594 20.5492 22.1133 17.3585 22.1133 13.7978H22.1142ZM3.68613 13.7978C3.68613 18.8378 7.7456 22.8612 12.877 22.8612H14.8363C12.5037 20.5492 11.0575 17.3585 11.0575 13.7978C11.0575 10.2371 12.5037 7.0005 14.8363 4.68851H12.877C7.74473 4.68851 3.68613 8.75789 3.68613 13.7978Z"
-        fill={fill}
+        d="M13.5 7.5L8.5 12.5L6.5 10.5"
+        stroke={fill}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
 }
 
-// Full lockup: mark + "onramper" wordmark in Saans
-export function LogoLockup({ className = "", color = "#151515" }) {
+// GIVEBACK logo lockup, renders the uploaded brand logo from /public.
+// Keeps the same prop signature (className, color) so Header/Footer callers
+// don't change. `color` is accepted but unused now that it's an image.
+export function LogoLockup({ className = "", color }) {
   return (
-    <div className={`flex items-center gap-[6px] ${className}`}>
-      <LogoMark className="h-[20px] w-auto" fill={color} />
-      <span
-        className="font-saans text-[27px] font-medium leading-none tracking-[-0.5px]"
-        style={{ color }}
-      >
-        onramper
-      </span>
-    </div>
+    <span className={`inline-flex items-center ${className}`}>
+      <Image
+        src="/giveback-logo.png"
+        alt="GIVEBACK $GBACK"
+        width={150}
+        height={42}
+        priority
+        style={{ height: 40, width: "auto" }}
+      />
+    </span>
   );
 }
 
-export function NavChevron({ className = "", stroke = "#808099" }) {
+export function NavChevron({ className = "", stroke = "#5B6B70" }) {
   return (
     <svg
       width="16"
@@ -81,7 +89,6 @@ export function ArrowIcon({ className = "", stroke = "white" }) {
   );
 }
 
-// Diagonal up-right arrow used in "Read Report ↗" and product card corner buttons
 export function ArrowUpRight({ className = "", stroke = "currentColor" }) {
   return (
     <svg

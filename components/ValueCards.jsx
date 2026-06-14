@@ -1,16 +1,14 @@
 import Container from "./Container";
 
-// A single value card. .value_card { aspect-ratio:620/717; border-radius:24px }
-// .value_card-content { padding:40px; justify-content:space-between }
 function ValueCard({ title, bg, titleColor, children }) {
   return (
     <div
       className="value_card relative aspect-[620/717] overflow-hidden rounded-card"
       style={{ background: bg }}
     >
-      <div className="value_card-content absolute inset-0 z-[5] flex flex-col justify-between p-sp-sm">
+      <div className="value_card-content absolute inset-0 z-[5] flex flex-col justify-between p-6 lg:p-sp-sm">
         <h3
-          className="max-w-[280px] font-saans text-[32px] font-medium leading-[105%] tracking-[-0.8px]"
+          className="max-w-[280px] font-saans text-[26px] font-bold leading-[102%] tracking-[-1px] sm:text-[32px]"
           style={{ color: titleColor }}
         >
           {title}
@@ -23,69 +21,58 @@ function ValueCard({ title, bg, titleColor, children }) {
 
 export default function ValueCards() {
   return (
-    // .section_value-cards lives on white background below the pearl hero
-    <section className="bg-white py-sp-xxl">
+    <section id="why" className="bg-white py-sp-lg lg:py-sp-xxl">
       <Container>
-        {/* .three_card-header { justify-content:space-between; align-items:flex-start; margin-bottom:80px } */}
-        <div className="mb-sp-lg flex flex-col items-start justify-between gap-sp-sm text-off-black lg:flex-row">
-          {/* heading-style-h2: 90px / 100% / -1.8px / 500 */}
-          <h2 className="max-w-[640px] font-saans text-[48px] font-medium leading-[100%] tracking-[-1.8px] md:text-[72px] lg:text-[90px]">
-            Double the volumes with a fraction of the effort
+        <div className="mb-8 flex flex-col items-start justify-between gap-6 text-off-black lg:mb-sp-lg lg:flex-row lg:gap-sp-sm">
+          <h2 className="max-w-[640px] font-saans text-[32px] font-bold leading-[100%] tracking-[-1.8px] sm:text-[48px] md:text-[72px] lg:text-[90px]">
+            Why People Believe in $GBACK
           </h2>
-          <div className="max-w-[360px] shrink-0">
-            <p className="text-[18px] leading-[150%] tracking-[-0.2px] text-body-copy">
-              Get the best of every onramp. Onramper puts an expansive network
-              of onramps at your customers’ fingertips, and seamlessly matches
-              them with the one best suited to meet their needs.
+          <div className="w-full max-w-[360px] shrink-0">
+            <p className="text-[16px] leading-[150%] tracking-[-0.2px] text-body-copy sm:text-[18px]">
+              A system where every transaction creates real, visible change ,
+              with every donation, wallet, and impact fully visible on-chain.
             </p>
             <a
-              href="#"
-              className="mt-[24px] inline-block rounded-button bg-off-black px-[30px] py-[18px] text-[20px] font-medium leading-[110%] tracking-[-0.2px] text-white transition-opacity hover:opacity-90"
-            >
-              Book a demo
+              href="/pages/about"
+              className="mt-5 inline-block w-full rounded-button bg-off-black px-[30px] py-[16px] text-center text-[18px] font-bold leading-[110%] tracking-[-0.2px] text-white transition-opacity hover:opacity-90 sm:w-auto sm:py-[18px] sm:text-[20px] lg:mt-[24px]"
+>
+              How It Works
             </a>
           </div>
         </div>
 
-        {/* .value_cards { grid-template-columns:1fr 1fr; gap:40px } */}
-        <div className="grid grid-cols-1 gap-sp-sm md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:gap-sp-sm">
           <ValueCard
-            title="30+ ramps in one integration"
+            title="50%+ to Humanitarian Aid"
             bg="#efeef3"
             titleColor="#151515"
           >
             <div
               data-placeholder="value-card-ramps"
-              className="flex h-[180px] items-end justify-center rounded-[16px] bg-white/60 text-[13px] uppercase tracking-[1px] text-steel"
+              className="flex h-[140px] items-end justify-center rounded-[16px] bg-white/60 text-[12px] uppercase tracking-[1px] text-steel sm:h-[180px]"
             >
-              [ ramps stack art ]
+              Direct funding for meals, shelters, and disaster relief.
             </div>
           </ValueCard>
 
           <ValueCard
-            title="130 payment methods"
-            bg="linear-gradient(135deg,#1f00ff 0%,#1600d3 100%)"
+            title="Transparent on Chain"
+            bg="linear-gradient(135deg,#20C854 0%,#159C40 100%)"
             titleColor="#ffffff"
           >
             <div
               data-placeholder="value-card-payments"
               className="flex flex-wrap items-center justify-center gap-[10px]"
             >
-              {["A", "Pay", "Pay", "UPI", "R", "W", "Grab", "S€PA", "p4f"].map(
-                (m, i) => (
-                  <span
-                    key={i}
-                    className="flex h-[48px] w-[48px] items-center justify-center rounded-full bg-white text-[12px] font-medium text-off-black"
-                  >
-                    {m}
-                  </span>
-                )
-              )}
+              <p className="text-[14px] leading-[150%] text-white/90 sm:text-[15px]">
+                All donation wallets and reserves are publicly verifiable on the
+                Solana blockchain.
+              </p>
             </div>
           </ValueCard>
 
           <ValueCard
-            title="Smart routing to optimize volumes"
+            title="Community Decisions"
             bg="#efeef3"
             titleColor="#151515"
           >
@@ -94,10 +81,10 @@ export default function ValueCards() {
               className="flex flex-col gap-[10px]"
             >
               {[
-                ["Revolut", "Best price", "0.0042 ETH"],
-                ["Stripe", "", "0.0040 ETH"],
-                ["Banxa", "", "0.003998 ETH"],
-              ].map(([name, tag, amt], i) => (
+                ["United Food Bank", "Funded"],
+                ["Brothers 4 Hope", "Voting"],
+                ["Healing Hearts", "Proposed"],
+              ].map(([name, tag], i) => (
                 <div
                   key={i}
                   className="flex items-center justify-between rounded-[12px] bg-white px-[16px] py-[12px] shadow-sm"
@@ -107,25 +94,18 @@ export default function ValueCards() {
                       {name[0]}
                     </span>
                     <div className="leading-tight">
-                      <p className="text-[14px] font-medium text-off-black">
-                        {name}
-                      </p>
-                      {tag && (
-                        <p className="text-[12px] text-vibrant-teal-1">{tag}</p>
-                      )}
+                      <p className="text-[13px] font-medium text-off-black sm:text-[14px]">{name}</p>
+                      <p className="text-[12px] text-vibrant-teal-1">{tag}</p>
                     </div>
                   </div>
-                  <span className="text-[14px] font-medium text-off-black">
-                    {amt}
-                  </span>
                 </div>
               ))}
             </div>
           </ValueCard>
 
           <ValueCard
-            title="Re-use KYC across ramps"
-            bg="linear-gradient(135deg,#5460ff 0%,#1f00ff 100%)"
+            title="Immediate & Long-Term Impact"
+            bg="linear-gradient(135deg,#42A02A 0%,#20C854 100%)"
             titleColor="#ffffff"
           >
             <div
@@ -133,15 +113,15 @@ export default function ValueCards() {
               className="flex flex-col items-center gap-[14px]"
             >
               <div className="flex w-full justify-between gap-[10px]">
-                <span className="flex-1 rounded-[10px] bg-white/15 px-[12px] py-[10px] text-center text-[12px] text-white">
-                  KYC Providers
+                <span className="flex-1 rounded-[10px] bg-white/15 px-[10px] py-[10px] text-center text-[12px] text-white">
+                  Crisis Response
                 </span>
-                <span className="flex-1 rounded-[10px] bg-white/15 px-[12px] py-[10px] text-center text-[12px] text-white">
-                  Financial Institutions
+                <span className="flex-1 rounded-[10px] bg-white/15 px-[10px] py-[10px] text-center text-[12px] text-white">
+                  Housing Programs
                 </span>
               </div>
               <div className="flex w-full justify-between gap-[10px]">
-                {["Onramp 1", "Onramp 2", "Onramp 3"].map((o) => (
+                {["Meals", "Shelter", "Relief"].map((o) => (
                   <span
                     key={o}
                     className="flex-1 rounded-[10px] bg-white/15 px-[8px] py-[10px] text-center text-[12px] text-white"

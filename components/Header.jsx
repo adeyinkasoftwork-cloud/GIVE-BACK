@@ -1,84 +1,199 @@
-import Container from "./Container";
-import { LogoLockup, NavChevron, ArrowUpRight } from "./icons";
+"use client";
 
-// Top announcement bar — .butter__bar { background: off-black; color: pearl }
-function ButterBar() {
+import { useState } from "react";
+import Image from "next/image";
+import Container from "./Container";
+
+const NAV_LINKS = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/pages/about" },
+  { label: "Earn", href: "/pages/earn" },
+  { label: "How to Buy", href: "/pages/how-to-buy" },
+  { label: "Impact", href: "/pages/impact" },
+  { label: "Tokenomics", href: "/pages/tokenomics" },
+  { label: "Whitepaper", href: "/pages/whitepaper" },
+];
+
+const SEARCH_INDEX = [
+  { label: "Hero, Giveback Coin $GBACK", anchor: "#hero", keywords: "buy gback whitepaper contract address solana" },
+  { label: "Global Reach Globe", anchor: "#globe", keywords: "countries onramps reach world map" },
+  { label: "Live Metrics & Swap", anchor: "#live-metrics", keywords: "gback sol chart swap connect wallet dexscreener price" },
+  { label: "Testimonials", anchor: "#testimonials", keywords: "reviews community members quotes" },
+  { label: "Global Relief", anchor: "#relief", keywords: "blockchain transparency images impact gallery" },
+  { label: "Real Impact Metrics", anchor: "#impact", keywords: "people helped meals provided disaster responses" },
+  { label: "Our Partners", anchor: "#partners", keywords: "mcdonalds goodwill united food bank brothers healing hearts" },
+  { label: "Why People Believe in $GBACK", anchor: "#why", keywords: "humanitarian aid transparent community decisions" },
+  { label: "Available Platforms", anchor: "#platforms", keywords: "coinbase jupiter phantom solflare pumpfun okx bitget" },
+  { label: "Community Ecosystem Fund", anchor: "#fund", keywords: "paypal contribution donate fiat" },
+  { label: "FAQ", anchor: "#faq", keywords: "questions buy transparent" },
+];
+
+function SearchBar() {
+  const [q, setQ] = useState("");
+  const [open, setOpen] = useState(false);
+  const results = q.trim()
+    ? SEARCH_INDEX.filter((s) =>
+        (s.label + " " + s.keywords).toLowerCase().includes(q.toLowerCase())
+      )
+    : [];
+
+  const go = (anchor) => {
+    setOpen(false);
+    setQ("");
+    const el = document.querySelector(anchor);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div className="relative z-50 bg-off-black text-pearl">
-      <Container>
-        <div className="flex items-center justify-between gap-4 py-[12px]">
-          <div className="flex items-center gap-3">
-            {/* report cover thumbnail placeholder */}
-            <div className="h-[34px] w-[34px] shrink-0 rounded-[6px] bg-gradient-to-br from-[#2b6bff] to-[#7a4bff]" />
-            <p className="text-[16px] font-medium tracking-[-0.2px]">
-              Discover the best crypto onramp guide. Read about it in our 2026
-              report!
-            </p>
-          </div>
-          <a
-            href="#"
-            className="flex shrink-0 items-center gap-1 text-[16px] font-medium tracking-[-0.2px] text-pearl"
-          >
-            Read Report
-            <ArrowUpRight className="h-[16px] w-[16px]" stroke="#efeef3" />
-          </a>
+    <div className="relative">
+      <div className="flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 backdrop-blur-md ring-1 ring-white/40">
+        <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
+          <circle cx="8" cy="8" r="6" stroke="#0D232B" strokeWidth="1.6" />
+          <path d="M16 16L12.5 12.5" stroke="#0D232B" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
+        <input
+          value={q}
+          onChange={(e) => { setQ(e.target.value); setOpen(true); }}
+          onFocus={() => setOpen(true)}
+          placeholder="Search…"
+          className="w-[120px] bg-transparent text-[15px] text-off-black placeholder:text-off-black/50 focus:outline-none"
+        />
+      </div>
+      {open && results.length > 0 && (
+        <div className="absolute right-0 top-[48px] z-50 w-[300px] overflow-hidden rounded-2xl glass p-2">
+          {results.map((r) => (
+            <button
+              key={r.anchor}
+              onClick={() => go(r.anchor)}
+              className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-[14px] text-off-black transition-colors hover:bg-secondary/20"
+            >
+              {r.label}
+            </button>
+          ))}
         </div>
-      </Container>
+      )}
     </div>
   );
 }
 
-const NAV_LINKS = [
-  { label: "Buy Crypto", hasChevron: false },
-  { label: "Enterprise", hasChevron: false },
-  { label: "Coverage", hasChevron: true },
-  { label: "Products", hasChevron: true },
-  { label: "Pricing", hasChevron: false },
-];
-
 export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <header className="header relative z-40 w-full">
-      <ButterBar />
-      <Container>
-        {/* .header__wrap { justify-content: space-between; padding-top: 24px } */}
-        <div className="flex items-center justify-between pt-[24px]">
-          {/* Logo pill */}
-          <a
-            href="#"
-            className="flex items-center rounded-nav bg-white px-[28px] py-[18px] shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
-          >
-            <LogoLockup />
+    <header className="sticky top-0 z-40 w-full">
+      <Container className="!px-4">
+        {/* Pill bar — relative so the mobile drawer can anchor from it */}
+        <div className="relative mt-[18px] flex items-center justify-between gap-2 rounded-full glass px-4 py-2.5 sm:gap-4 sm:px-5">
+          {/* Logo */}
+          <a href="/" className="flex shrink-0 items-center">
+            <Image
+              src="/giveback-logo.png"
+              alt="GIVEBACK $GBACK"
+              width={220}
+              height={60}
+              priority
+              className="h-[42px] w-auto sm:h-[52px] lg:h-[64px]"
+            />
           </a>
 
-          {/* Center nav pill — .header__navigation { border-radius:123px; padding:11px 12px; gap:24px } */}
-          <nav className="hidden items-center gap-[24px] rounded-nav bg-white px-[24px] py-[16px] shadow-[0_2px_20px_rgba(0,0,0,0.04)] lg:flex">
+          {/* Center nav (desktop only) */}
+          <nav className="hidden items-center gap-[18px] xl:flex">
             {NAV_LINKS.map((item) => (
               <a
                 key={item.label}
-                href="#"
-                className="flex items-center gap-[6px] px-[12px] text-[18px] font-medium tracking-[-0.2px] text-off-black transition-colors hover:text-cyber-blue-2"
+                href={item.href}
+                className="font-body text-[16px] font-medium tracking-[-0.3px] text-off-black/85 transition-colors hover:text-secondary"
               >
                 {item.label}
-                {item.hasChevron && <NavChevron className="mt-[2px]" />}
               </a>
             ))}
           </nav>
 
           {/* Right actions */}
-          <div className="flex items-center gap-[12px]">
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* Search: hidden on mobile to prevent overflow */}
+            <div className="hidden md:block">
+              <SearchBar />
+            </div>
             <a
-              href="#"
-              className="hidden rounded-button bg-white px-[30px] py-[18px] text-[18px] font-medium tracking-[-0.2px] text-off-black shadow-[0_2px_20px_rgba(0,0,0,0.04)] md:block"
+              href="/pages/livestream"
+              className="hidden items-center gap-1.5 rounded-full btn-glass px-4 py-2.5 font-body text-[14px] font-bold text-off-black lg:flex"
             >
-              Try Widget
+              <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
+              Livestream
             </a>
             <a
-              href="#"
-              className="rounded-button bg-off-black px-[30px] py-[18px] text-[18px] font-medium tracking-[-0.2px] text-white transition-opacity hover:opacity-90"
+              href="/pages/ambassador-program"
+              className="hidden rounded-full px-4 py-2.5 font-body text-[14px] font-bold text-[#052310] md:block"
+              style={{ background: "linear-gradient(135deg, rgba(32,200,84,0.85), rgba(21,156,64,0.85))", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.4)", boxShadow: "0 6px 20px rgba(32,200,84,0.35)" }}
             >
-              Get started
+              Get Involved
             </a>
+            <a
+              href="/pages/how-to-buy"
+              className="rounded-full btn-green px-4 py-2 font-body text-[13px] font-bold sm:px-5 sm:py-2.5 sm:text-[14px]"
+            >
+              Buy $GBACK
+            </a>
+
+            {/* Hamburger — visible below xl */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
+              className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] xl:hidden"
+            >
+              <span
+                className={`h-[2px] w-[18px] rounded-full bg-off-black transition-all duration-300 ${
+                  menuOpen ? "translate-y-[7px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`h-[2px] w-[18px] rounded-full bg-off-black transition-all duration-300 ${
+                  menuOpen ? "opacity-0 scale-x-0" : ""
+                }`}
+              />
+              <span
+                className={`h-[2px] w-[18px] rounded-full bg-off-black transition-all duration-300 ${
+                  menuOpen ? "-translate-y-[7px] -rotate-45" : ""
+                }`}
+              />
+            </button>
+          </div>
+
+          {/* Mobile drawer — slides down from pill, animated via max-h */}
+          <div
+            className={`absolute left-0 right-0 top-[calc(100%+10px)] z-50 overflow-hidden rounded-[24px] glass shadow-[0_20px_60px_rgba(13,35,43,0.18)] transition-all duration-300 xl:hidden ${
+              menuOpen ? "max-h-[600px] opacity-100" : "pointer-events-none max-h-0 opacity-0"
+            }`}
+          >
+            <nav className="flex flex-col gap-0.5 p-4">
+              {NAV_LINKS.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="rounded-[14px] px-4 py-3 text-[16px] font-bold text-off-black transition-colors hover:bg-cyber-blue-2/10"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+            <div className="flex gap-3 px-4 pb-4">
+              <a
+                href="/pages/how-to-buy"
+                onClick={() => setMenuOpen(false)}
+                className="flex-1 rounded-full btn-green py-3 text-center text-[15px] font-bold"
+              >
+                Buy $GBACK
+              </a>
+              <a
+                href="/pages/ambassador-program"
+                onClick={() => setMenuOpen(false)}
+                className="flex-1 rounded-full btn-glass py-3 text-center text-[15px] font-bold text-white"
+              >
+                Get Involved
+              </a>
+            </div>
           </div>
         </div>
       </Container>

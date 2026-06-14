@@ -1,4 +1,4 @@
-# Onramper Clone — Next.js + Tailwind
+# GIVEBACK ($GBACK) — Onramper layout, rebranded
 
 Static, pixel-faithful clone of onramper.com's homepage layout, built as the
 template for redesigning your own site.

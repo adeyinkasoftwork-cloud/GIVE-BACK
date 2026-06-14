@@ -1,44 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=DM+Sans:wght@400;500;700&family=Big+Shoulders+Display:wght@500;700;900&family=Inter:wght@400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Saans — pulled from Onramper's Webflow CDN (weights 400 / 500 are the only ones the site loads) */
-@font-face {
-  font-family: "Saans";
-  src: url("https://cdn.prod.website-files.com/67a0d60e32c158a5f3186d6f/68c837dd7dd1ca0ca4f58f74_SaansRegular.woff2")
-    format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Saans";
-  src: url("https://cdn.prod.website-files.com/67a0d60e32c158a5f3186d6f/68c838741866b0f38fd17f8c_SaansMedium.woff2")
-    format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
 html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: "Saans", Arial, sans-serif;
-  color: #151515;
+  font-family: "Abel", "DM Sans", Arial, sans-serif;
+  color: #0D232B;
   background-color: #ffffff;
 }
 
-/* Webflow base heading reset: tight line-heights, no margins.
-   h1 line-height 90% / 700; display headings use 100% / 500 per .heading-style-* */
 h1, h2, h3, h4 {
   margin: 0;
+  font-family: "Abel", sans-serif;
   font-weight: 500;
   line-height: 100%;
 }
 
-* {
-  box-sizing: border-box;
+* { box-sizing: border-box; }
+
+@layer components {
+  /* Apple-style glassmorphism surface */
+  .glass {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px rgba(13, 35, 43, 0.12), inset 0 1px 0 rgba(255,255,255,0.7);
+  }
+  /* Premium Apple-grade glassmorphism for partner tiles */
+  .glass-partner {
+    background: #ffffff;
+    border: 1px solid rgba(255,255,255,0.85);
+    box-shadow:
+      0 2px 4px rgba(13,35,43,0.04),
+      0 8px 24px rgba(13,35,43,0.08),
+      0 24px 56px rgba(13,35,43,0.10),
+      inset 0 1.5px 0 rgba(255,255,255,0.95),
+      inset 0 -1px 0 rgba(255,255,255,0.35);
+  }
+  .glass-partner:hover {
+    background: #ffffff;
+    box-shadow:
+      0 4px 8px rgba(13,35,43,0.06),
+      0 16px 40px rgba(13,35,43,0.12),
+      0 40px 80px rgba(13,35,43,0.12),
+      0 0 0 1.5px rgba(32,200,84,0.45),
+      inset 0 1.5px 0 rgba(255,255,255,0.98),
+      inset 0 -1px 0 rgba(255,255,255,0.40);
+  }
+  .glass-dark {
+    background: rgba(13, 35, 43, 0.55);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  /* Green gradient button (brand greens) with glass sheen + hover lift */
+  .btn-green {
+    background: linear-gradient(135deg, #20C854 0%, #159C40 60%, #42A02A 100%);
+    color: #052310;
+    box-shadow: 0 6px 20px rgba(32, 200, 84, 0.35), inset 0 1px 0 rgba(255,255,255,0.35);
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, filter .25s ease;
+  }
+  .btn-green:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(32, 200, 84, 0.5), inset 0 1px 0 rgba(255,255,255,0.5);
+    filter: brightness(1.05);
+  }
+  .btn-glass {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.30);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.25);
+    color: #ffffff;
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), background .25s ease, box-shadow .25s ease;
+  }
+  .btn-glass:hover {
+    transform: translateY(-2px) scale(1.02);
+    background: rgba(255,255,255,0.22);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.4);
+    color: #ffffff;
+  }
+  .btn-glass-green {
+    background: rgba(32,200,84,0.15);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(32,200,84,0.45);
+    box-shadow: 0 4px 16px rgba(32,200,84,0.15), inset 0 1px 0 rgba(106,255,158,0.25);
+    color: #6AFF9E;
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), background .25s ease, box-shadow .25s ease;
+  }
+  .btn-glass-green:hover {
+    transform: translateY(-2px) scale(1.02);
+    background: rgba(32,200,84,0.28);
+    box-shadow: 0 8px 28px rgba(32,200,84,0.30), inset 0 1px 0 rgba(106,255,158,0.4);
+    color: #6AFF9E;
+  }
+  .btn-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.6);
+    border-radius: 9999px;
+    transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+  }
+  .btn-social:hover {
+    background: rgba(32,200,84,0.12);
+    border-color: rgba(32,200,84,0.5);
+    color: #20C854;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes marquee-x {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee-x 40s linear infinite; }
+.marquee-paused:hover .animate-marquee { animation-play-state: paused; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ---- WhyBelieve bento animations ---- */
+/* Rotating 3-token carousel */
+.token-carousel { perspective: 600px; }
+.token-orb {
+  position: absolute; top: 50%; left: 50%;
+  width: 90px; height: 90px; margin: -45px 0 0 -45px;
+  border-radius: 9999px; display: flex; align-items: center; justify-content: center;
+}
+.token-orb-0 { background: linear-gradient(135deg,#2f8bff,#1f6bff); animation: orb0 6s ease-in-out infinite; }
+.token-orb-1 { background: linear-gradient(135deg,#2b2b2f,#0c0c0e); animation: orb1 6s ease-in-out infinite; }
+.token-orb-2 { background: linear-gradient(135deg,#b69bff,#8a6bff); animation: orb2 6s ease-in-out infinite; }
+@keyframes orb0 {
+  0%,100% { transform: translateX(-70px) scale(.82); opacity:.7; z-index:1; }
+  33% { transform: translateX(0) scale(1.05); opacity:1; z-index:3; }
+  66% { transform: translateX(70px) scale(.82); opacity:.7; z-index:1; }
+}
+@keyframes orb1 {
+  0%,100% { transform: translateX(0) scale(1.05); opacity:1; z-index:3; }
+  33% { transform: translateX(70px) scale(.82); opacity:.7; z-index:1; }
+  66% { transform: translateX(-70px) scale(.82); opacity:.7; z-index:1; }
+}
+@keyframes orb2 {
+  0%,100% { transform: translateX(70px) scale(.82); opacity:.7; z-index:1; }
+  33% { transform: translateX(-70px) scale(.82); opacity:.7; z-index:1; }
+  66% { transform: translateX(0) scale(1.05); opacity:1; z-index:3; }
+}
+
+/* Floating on-rail badges */
+.float-badge { position: absolute; animation: floatY 3.4s ease-in-out infinite; }
+@keyframes floatY {
+  0%,100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-14px) rotate(3deg); }
+}
+
+/* Orbiting sphere around CTA */
+.orbit-sphere {
+  position: absolute; width: 18px; height: 18px; border-radius: 9999px;
+  background: radial-gradient(circle at 30% 30%, #6AFF9E, #20C854);
+  box-shadow: 0 4px 14px rgba(32,200,84,0.6);
+  offset-path: ellipse(150px 100px at 50% 50%);
+  animation: orbit 7s linear infinite;
+}
+@keyframes orbit { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+
+/* Slow floating badge */
+.floating-badge { position: relative; z-index: 5; animation: floatY2 4s ease-in-out infinite; }
+@keyframes floatY2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* Dotted spinning globe for the Join the Movement banner */
+.dotted-globe {
+  width: 340px; height: 340px; border-radius: 9999px;
+  background-image: radial-gradient(rgba(255,255,255,0.55) 1.4px, transparent 1.6px);
+  background-size: 14px 14px;
+  -webkit-mask: radial-gradient(circle at 50% 50%, #000 60%, transparent 72%);
+  mask: radial-gradient(circle at 50% 50%, #000 60%, transparent 72%);
+  box-shadow: inset -30px -20px 60px rgba(0,0,0,0.7), inset 20px 10px 50px rgba(124,92,255,0.15);
+  animation: globe-spin 28s linear infinite;
+}
+@keyframes globe-spin {
+  from { background-position: 0 0; }
+  to { background-position: 340px 0; }
+}
+
+/* Testimonial mobile scroll strip — hide scrollbar cross-browser */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
