@@ -28,6 +28,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="preconnect" href="https://dexscreener.com" />
+        <link rel="dns-prefetch" href="https://dexscreener.com" />
       </head>
       <body>
         {children}

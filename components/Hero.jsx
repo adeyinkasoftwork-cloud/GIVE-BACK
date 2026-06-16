@@ -8,6 +8,7 @@ const VIDEO_CROP = 1.22;
 
 export default function Hero() {
   const videoRef = useRef(null);
+  const embedRef = useRef(null);
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -138,10 +139,15 @@ export default function Hero() {
         {/* Hero video embed */}
         <div className="mx-auto mt-8 w-full overflow-hidden rounded-[20px] glass-dark p-2 lg:mt-sp-lg lg:max-w-[900px]">
           <video
-            className="h-auto w-full rounded-[14px]"
+            ref={embedRef}
+            className="aspect-video w-full rounded-[14px] object-cover"
             controls
             playsInline
-            preload="none"
+            preload="metadata"
+            poster="/cover/preview.png"
+            onLoadedMetadata={() => {
+              if (embedRef.current) embedRef.current.currentTime = 0.001;
+            }}
           >
             <source src="https://res.cloudinary.com/dyy3lxpoh/video/upload/v1781597022/video_1_under100_oyajqs.mp4" type="video/mp4" />
           </video>
