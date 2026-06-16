@@ -76,12 +76,13 @@ function SwapTile() {
 }
 
 function DexScreenerChart() {
-  const [loaded, setLoaded] = useState(false);
+  // true = skeleton visible; false = skeleton gone, iframe content shows
+  const [skeleton, setSkeleton] = useState(true);
 
-  // Fallback: remove skeleton after 5 s regardless, so it can never spin forever
   useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 5000);
-    return () => clearTimeout(t);
+    // Hard ceiling: skeleton can never outlast 4 s even if onLoad never fires
+    const fallback = setTimeout(() => setSkeleton(false), 4000);
+    return () => clearTimeout(fallback);
   }, []);
 
   return (
@@ -89,8 +90,8 @@ function DexScreenerChart() {
       className="relative w-full overflow-hidden rounded-[14px]"
       style={{ height: "min(60vw, 480px)", minHeight: 280 }}
     >
-      {/* Skeleton overlay — sits on top until iframe fires onLoad (or 5 s fallback) */}
-      {!loaded && (
+      {/* Skeleton overlay — always-rendered iframe sits underneath from first paint */}
+      {skeleton && (
         <div
           className="pointer-events-none absolute inset-0 z-10 flex flex-col gap-3 p-4"
           style={{
@@ -106,7 +107,7 @@ function DexScreenerChart() {
         </div>
       )}
 
-      {/* iframe always mounted — no scroll gate, no loading="lazy" */}
+      {/* No scroll gate. No conditional render. No loading="lazy". Always loads. */}
       <iframe
         src={DEXSCREENER_SRC}
         title="GBACK/SOL DexScreener chart"
@@ -114,7 +115,7 @@ function DexScreenerChart() {
         style={{ border: 0 }}
         referrerPolicy="no-referrer-when-downgrade"
         allow="clipboard-write"
-        onLoad={() => setLoaded(true)}
+        onLoad={() => setSkeleton(false)}
       />
     </div>
   );
