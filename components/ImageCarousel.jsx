@@ -9,31 +9,56 @@ export default function ImageCarousel() {
   const [active, setActive] = useState(0);
 
   return (
-    <div className="flex h-[240px] w-full gap-1.5 overflow-hidden rounded-[16px] sm:h-[340px] sm:gap-2 lg:h-[460px] lg:rounded-[20px] lg:gap-2">
-      {IMAGES.map((src, i) => {
-        const isActive = active === i;
-        return (
+    <>
+      {/* Mobile: full-width snap-scroll carousel */}
+      <div
+        className="lg:hidden flex h-[340px] w-full snap-x snap-mandatory overflow-x-auto rounded-[20px] gap-3"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        {IMAGES.map((src, i) => (
           <div
             key={src}
-            onMouseEnter={() => setActive(i)}
-            onClick={() => setActive(i)}
-            className="relative h-full cursor-pointer overflow-hidden rounded-[10px] bg-[#0D232B] transition-all duration-[600ms] ease-[cubic-bezier(.2,.8,.2,1)] lg:rounded-[14px]"
-            style={{
-              flex: isActive ? 8 : 1,
-              filter: isActive ? "saturate(1.05)" : "grayscale(1) brightness(0.78)",
-            }}
+            className="relative min-w-full h-full shrink-0 snap-center overflow-hidden rounded-[16px] bg-[#0D232B]"
           >
             <Image
               src={src}
               alt=""
               fill
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              sizes="100vw"
               className="object-cover"
               loading="lazy"
             />
           </div>
-        );
-      })}
-    </div>
+        ))}
+      </div>
+
+      {/* Desktop: accordion expand */}
+      <div className="hidden lg:flex h-[460px] w-full gap-2 overflow-hidden rounded-[20px]">
+        {IMAGES.map((src, i) => {
+          const isActive = active === i;
+          return (
+            <div
+              key={src}
+              onMouseEnter={() => setActive(i)}
+              onClick={() => setActive(i)}
+              className="relative h-full cursor-pointer overflow-hidden rounded-[14px] bg-[#0D232B] transition-all duration-[600ms] ease-[cubic-bezier(.2,.8,.2,1)]"
+              style={{
+                flex: isActive ? 8 : 1,
+                filter: isActive ? "saturate(1.05)" : "grayscale(1) brightness(0.78)",
+              }}
+            >
+              <Image
+                src={src}
+                alt=""
+                fill
+                sizes="25vw"
+                className="object-cover"
+                loading="lazy"
+              />
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 }

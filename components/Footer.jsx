@@ -63,20 +63,44 @@ const SOCIAL_ICONS = [
 
 export default function Footer() {
   return (
-    <footer
-      className="relative overflow-hidden"
-      style={{
-        background:
-          "radial-gradient(110% 140% at 15% 0%, rgba(32,200,84,0.16) 0%, rgba(10,12,11,0.97) 45%, #060807 100%)",
-      }}
-    >
-      {/* glow blob */}
+    <footer className="relative overflow-hidden">
+
+      {/* ── Background gradient ── */}
+      <div className="absolute inset-0 bg-[#050E09]" />
       <div
-        className="pointer-events-none absolute -left-32 -top-32 h-[420px] w-[420px] rounded-full blur-[110px]"
-        style={{ background: "rgba(32,200,84,0.12)" }}
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 0% 0%, rgba(32,200,84,0.18) 0%, transparent 60%)," +
+            "radial-gradient(ellipse 60% 50% at 100% 100%, rgba(21,156,64,0.14) 0%, transparent 55%)," +
+            "radial-gradient(ellipse 50% 40% at 50% 110%, rgba(106,255,158,0.08) 0%, transparent 50%)," +
+            "linear-gradient(160deg, #071812 0%, #04100A 40%, #030C09 70%, #040F0C 100%)",
+        }}
       />
 
-      <div className="relative z-10 mx-auto max-w-[1400px] px-5 pb-8 pt-10 md:px-16 md:pt-16 md:pb-10">
+      {/* ── Glowing orbs ── */}
+      <div
+        className="pointer-events-none absolute -left-40 -top-40 h-[560px] w-[560px] rounded-full opacity-60"
+        style={{ background: "radial-gradient(circle, rgba(32,200,84,0.22) 0%, transparent 70%)", filter: "blur(60px)" }}
+      />
+      <div
+        className="pointer-events-none absolute -bottom-24 right-0 h-[480px] w-[480px] rounded-full opacity-50"
+        style={{ background: "radial-gradient(circle, rgba(21,156,64,0.20) 0%, transparent 70%)", filter: "blur(80px)" }}
+      />
+      <div
+        className="pointer-events-none absolute bottom-0 left-1/2 h-[320px] w-[600px] -translate-x-1/2 rounded-full opacity-35"
+        style={{ background: "radial-gradient(ellipse, rgba(106,255,158,0.14) 0%, transparent 70%)", filter: "blur(70px)" }}
+      />
+
+      {/* ── Glowing top border ── */}
+      <div
+        className="absolute inset-x-0 top-0 h-px"
+        style={{ background: "linear-gradient(90deg, transparent 0%, rgba(32,200,84,0.5) 30%, rgba(106,255,158,0.8) 50%, rgba(32,200,84,0.5) 70%, transparent 100%)" }}
+      />
+
+      {/* ── Content ── */}
+      <div className="relative z-10 mx-auto max-w-[1400px] px-5 pb-8 pt-10 md:px-16 md:pb-10 md:pt-16">
+
         {/* CTA row */}
         <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -103,80 +127,108 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* divider */}
-        <div className="my-10 border-t border-white/10 md:my-12" />
+        {/* ── Glass divider ── */}
+        <div className="my-10 md:my-12" style={{ height: "1px", background: "linear-gradient(90deg, transparent, rgba(32,200,84,0.25) 20%, rgba(106,255,158,0.35) 50%, rgba(32,200,84,0.25) 80%, transparent)" }} />
 
-        {/* bottom grid */}
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
-          {/* Newsletter */}
-          <div className="col-span-2 sm:col-span-2 lg:col-span-1">
-            <p className="font-saans text-[15px] font-bold uppercase tracking-[1.5px] text-white">Newsletter</p>
-            <p className="mt-2 font-body text-[13px] leading-[1.6] text-white/55">
-              Stay updated on impact milestones and $GBACK news in our monthly newsletter.
-            </p>
-            <NewsletterForm />
-          </div>
+        {/* ── Glass panel: newsletter + nav ── */}
+        <div
+          className="rounded-2xl p-6 md:rounded-3xl md:p-8"
+          style={{
+            background: "rgba(255,255,255,0.04)",
+            backdropFilter: "blur(24px) saturate(160%)",
+            WebkitBackdropFilter: "blur(24px) saturate(160%)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            boxShadow:
+              "0 0 0 1px rgba(32,200,84,0.06), 0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.07), inset 0 -1px 0 rgba(32,200,84,0.06)",
+          }}
+        >
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
 
-          {/* Nav columns */}
-          {NAV.map((col) => (
-            <div key={col.title}>
-              <p className="font-saans text-[15px] font-bold uppercase tracking-[1.5px] text-white">{col.title}</p>
+            {/* Newsletter */}
+            <div className="col-span-2 sm:col-span-2 lg:col-span-1">
+              <p
+                className="font-saans text-[15px] font-bold uppercase tracking-[1.5px]"
+                style={{ background: "linear-gradient(90deg, #6AFF9E, #20C854)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+              >
+                Newsletter
+              </p>
+              <p className="mt-2 font-body text-[13px] leading-[1.6] text-white/50">
+                Stay updated on impact milestones and $GBACK news in our monthly newsletter.
+              </p>
+              <NewsletterForm />
+            </div>
+
+            {/* Nav columns */}
+            {NAV.map((col) => (
+              <div key={col.title}>
+                <p
+                  className="font-saans text-[15px] font-bold uppercase tracking-[1.5px]"
+                  style={{ background: "linear-gradient(90deg, #6AFF9E, #20C854)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                >
+                  {col.title}
+                </p>
+                <ul className="mt-3 flex flex-col gap-2.5">
+                  {col.links.map(([label, href]) => (
+                    <li key={label}>
+                      <a
+                        href={href}
+                        className="font-body text-[13px] text-white/50 transition-colors duration-200 hover:text-[#6AFF9E]"
+                      >
+                        {label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+
+            {/* Connect column */}
+            <div>
+              <p
+                className="font-saans text-[15px] font-bold uppercase tracking-[1.5px]"
+                style={{ background: "linear-gradient(90deg, #6AFF9E, #20C854)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+              >
+                Connect
+              </p>
               <ul className="mt-3 flex flex-col gap-2.5">
-                {col.links.map(([label, href]) => (
+                {[
+                  ["TikTok", "https://www.tiktok.com/@gbackcoin"],
+                  ["Facebook", "https://www.facebook.com/gbackcoin"],
+                  ["Kick", "https://kick.com/givebackcoin"],
+                ].map(([label, href]) => (
                   <li key={label}>
                     <a
                       href={href}
-                      className="font-body text-[13px] text-white/55 transition-colors hover:text-secondary"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-body text-[13px] text-white/50 transition-colors duration-200 hover:text-[#6AFF9E]"
                     >
                       {label}
                     </a>
                   </li>
                 ))}
               </ul>
-            </div>
-          ))}
-
-          {/* Socials column */}
-          <div>
-            <p className="font-saans text-[15px] font-bold uppercase tracking-[1.5px] text-white">Connect</p>
-            <ul className="mt-3 flex flex-col gap-2.5">
-              {[
-                ["TikTok", "https://www.tiktok.com/@gbackcoin"],
-                ["Facebook", "https://www.facebook.com/gbackcoin"],
-                ["Kick", "https://kick.com/givebackcoin"],
-              ].map(([label, href]) => (
-                <li key={label}>
+              {/* icon row */}
+              <div className="mt-5 flex flex-wrap gap-2">
+                {SOCIAL_ICONS.map(({ label, href, icon }) => (
                   <a
+                    key={label}
                     href={href}
                     target="_blank"
                     rel="noreferrer"
-                    className="font-body text-[13px] text-white/55 transition-colors hover:text-secondary"
+                    aria-label={label}
+                    className="btn-social h-9 w-9 sm:h-8 sm:w-8"
                   >
-                    {label}
+                    {icon}
                   </a>
-                </li>
-              ))}
-            </ul>
-            {/* icon row */}
-            <div className="mt-5 flex flex-wrap gap-2">
-              {SOCIAL_ICONS.map(({ label, href, icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={label}
-                  className="btn-social h-9 w-9 sm:h-8 sm:w-8"
-                >
-                  {icon}
-                </a>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
         {/* copyright */}
-        <p className="mt-8 text-center font-body text-[12px] text-white/35 md:mt-10">
+        <p className="mt-8 text-center font-body text-[12px] text-white/25 md:mt-10">
           © 2026 GIVEBACK COIN | $GBACK
         </p>
       </div>

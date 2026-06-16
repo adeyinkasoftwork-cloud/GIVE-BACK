@@ -81,9 +81,18 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full">
-      <Container className="!px-4">
-        {/* Pill bar — relative so the mobile drawer can anchor from it */}
-        <div className="relative mt-[18px] flex items-center justify-between gap-2 rounded-full glass px-4 py-2.5 sm:gap-4 sm:px-5">
+      {/* ── Mobile bar (full-width, solid) ─────────────────────────────── */}
+      <div className="xl:hidden">
+        <div
+          className="flex items-center justify-between px-4 py-3"
+          style={{
+            background: "rgba(255,255,255,0.97)",
+            backdropFilter: "blur(24px) saturate(180%)",
+            WebkitBackdropFilter: "blur(24px) saturate(180%)",
+            borderBottom: menuOpen ? "none" : "1px solid rgba(13,35,43,0.08)",
+            boxShadow: menuOpen ? "none" : "0 2px 20px rgba(13,35,43,0.10)",
+          }}
+        >
           {/* Logo */}
           <a href="/" className="flex shrink-0 items-center">
             <Image
@@ -92,12 +101,105 @@ export default function Header() {
               width={220}
               height={60}
               priority
-              className="h-[42px] w-auto sm:h-[52px] lg:h-[64px]"
+              className="h-[38px] w-auto"
             />
           </a>
 
-          {/* Center nav (desktop only) */}
-          <nav className="hidden items-center gap-[18px] xl:flex">
+          {/* Right: Buy + Hamburger */}
+          <div className="flex items-center gap-2.5">
+            <a
+              href="/pages/how-to-buy"
+              className="rounded-full btn-green px-4 py-2 font-body text-[13px] font-bold"
+            >
+              Buy $GBACK
+            </a>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
+              className="flex h-9 w-9 flex-col items-center justify-center gap-[5px]"
+            >
+              <span
+                className={`h-[2px] w-[20px] rounded-full bg-off-black transition-all duration-300 ${
+                  menuOpen ? "translate-y-[7px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`h-[2px] w-[20px] rounded-full bg-off-black transition-all duration-300 ${
+                  menuOpen ? "opacity-0 scale-x-0" : ""
+                }`}
+              />
+              <span
+                className={`h-[2px] w-[20px] rounded-full bg-off-black transition-all duration-300 ${
+                  menuOpen ? "-translate-y-[7px] -rotate-45" : ""
+                }`}
+              />
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile drawer — full-width panel, solid white */}
+        <div
+          className={`overflow-hidden transition-all duration-300 ${
+            menuOpen ? "max-h-[600px] opacity-100" : "pointer-events-none max-h-0 opacity-0"
+          }`}
+          style={{
+            background: "#ffffff",
+            borderBottom: "1px solid rgba(13,35,43,0.10)",
+            boxShadow: "0 8px 32px rgba(13,35,43,0.14)",
+          }}
+        >
+          <nav className="flex flex-col gap-0.5 px-4 pt-2 pb-3">
+            {NAV_LINKS.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                className="rounded-[14px] px-4 py-3 text-[16px] font-bold text-off-black transition-colors hover:bg-cyber-blue-2/10 active:bg-cyber-blue-2/20"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <div className="flex gap-3 px-4 pb-5">
+            <a
+              href="/pages/how-to-buy"
+              onClick={() => setMenuOpen(false)}
+              className="flex-1 rounded-full btn-green py-3 text-center text-[15px] font-bold"
+            >
+              Buy $GBACK
+            </a>
+            <a
+              href="/pages/ambassador-program"
+              onClick={() => setMenuOpen(false)}
+              className="flex-1 rounded-full py-3 text-center text-[15px] font-bold text-[#052310]"
+              style={{
+                background: "linear-gradient(135deg, #20C854, #159C40)",
+                boxShadow: "0 4px 16px rgba(32,200,84,0.35)",
+              }}
+            >
+              Get Involved
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Desktop pill bar ────────────────────────────────────────────── */}
+      <Container className="!px-4 hidden xl:block">
+        <div className="relative mt-[18px] flex items-center justify-between gap-4 rounded-full glass px-5 py-2.5">
+          {/* Logo */}
+          <a href="/" className="flex shrink-0 items-center">
+            <Image
+              src="/giveback-logo.png"
+              alt="GIVEBACK $GBACK"
+              width={220}
+              height={60}
+              priority
+              className="h-[52px] w-auto lg:h-[64px]"
+            />
+          </a>
+
+          {/* Center nav */}
+          <nav className="flex items-center gap-[18px]">
             {NAV_LINKS.map((item) => (
               <a
                 key={item.label}
@@ -110,90 +212,28 @@ export default function Header() {
           </nav>
 
           {/* Right actions */}
-          <div className="flex items-center gap-2 sm:gap-2.5">
-            {/* Search: hidden on mobile to prevent overflow */}
-            <div className="hidden md:block">
-              <SearchBar />
-            </div>
+          <div className="flex items-center gap-2.5">
+            <SearchBar />
             <a
               href="/pages/livestream"
-              className="hidden items-center gap-1.5 rounded-full btn-glass px-4 py-2.5 font-body text-[14px] font-bold text-off-black lg:flex"
+              className="flex items-center gap-1.5 rounded-full btn-glass px-4 py-2.5 font-body text-[14px] font-bold text-off-black"
             >
               <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
               Livestream
             </a>
             <a
               href="/pages/ambassador-program"
-              className="hidden rounded-full px-4 py-2.5 font-body text-[14px] font-bold text-[#052310] md:block"
+              className="rounded-full px-4 py-2.5 font-body text-[14px] font-bold text-[#052310]"
               style={{ background: "linear-gradient(135deg, rgba(32,200,84,0.85), rgba(21,156,64,0.85))", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.4)", boxShadow: "0 6px 20px rgba(32,200,84,0.35)" }}
             >
               Get Involved
             </a>
             <a
               href="/pages/how-to-buy"
-              className="rounded-full btn-green px-4 py-2 font-body text-[13px] font-bold sm:px-5 sm:py-2.5 sm:text-[14px]"
+              className="rounded-full btn-green px-5 py-2.5 font-body text-[14px] font-bold"
             >
               Buy $GBACK
             </a>
-
-            {/* Hamburger — visible below xl */}
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Toggle menu"
-              className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] xl:hidden"
-            >
-              <span
-                className={`h-[2px] w-[18px] rounded-full bg-off-black transition-all duration-300 ${
-                  menuOpen ? "translate-y-[7px] rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`h-[2px] w-[18px] rounded-full bg-off-black transition-all duration-300 ${
-                  menuOpen ? "opacity-0 scale-x-0" : ""
-                }`}
-              />
-              <span
-                className={`h-[2px] w-[18px] rounded-full bg-off-black transition-all duration-300 ${
-                  menuOpen ? "-translate-y-[7px] -rotate-45" : ""
-                }`}
-              />
-            </button>
-          </div>
-
-          {/* Mobile drawer — slides down from pill, animated via max-h */}
-          <div
-            className={`absolute left-0 right-0 top-[calc(100%+10px)] z-50 overflow-hidden rounded-[24px] glass shadow-[0_20px_60px_rgba(13,35,43,0.18)] transition-all duration-300 xl:hidden ${
-              menuOpen ? "max-h-[600px] opacity-100" : "pointer-events-none max-h-0 opacity-0"
-            }`}
-          >
-            <nav className="flex flex-col gap-0.5 p-4">
-              {NAV_LINKS.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="rounded-[14px] px-4 py-3 text-[16px] font-bold text-off-black transition-colors hover:bg-cyber-blue-2/10"
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-            <div className="flex gap-3 px-4 pb-4">
-              <a
-                href="/pages/how-to-buy"
-                onClick={() => setMenuOpen(false)}
-                className="flex-1 rounded-full btn-green py-3 text-center text-[15px] font-bold"
-              >
-                Buy $GBACK
-              </a>
-              <a
-                href="/pages/ambassador-program"
-                onClick={() => setMenuOpen(false)}
-                className="flex-1 rounded-full btn-glass py-3 text-center text-[15px] font-bold text-white"
-              >
-                Get Involved
-              </a>
-            </div>
           </div>
         </div>
       </Container>

@@ -35,7 +35,7 @@ export default function GlobeHero() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="globe" className="relative overflow-hidden bg-white py-sp-lg lg:py-sp-xxl">
+    <section ref={sectionRef} id="globe" className="relative overflow-hidden bg-white pt-sp-lg pb-sp-sm lg:pt-sp-xxl lg:pb-sp-reg">
       <div className="pointer-events-none absolute left-1/2 top-1/3 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-cyber-blue-2/10 blur-[100px] lg:h-[420px] lg:w-[420px] lg:blur-[130px]" />
       <Container className="relative z-10">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-sp-lg">

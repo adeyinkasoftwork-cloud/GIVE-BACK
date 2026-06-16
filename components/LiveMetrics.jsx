@@ -123,7 +123,7 @@ function DexScreenerChart() {
 
 export default function LiveMetrics() {
   return (
-    <section id="live-metrics" className="relative overflow-hidden bg-primary py-sp-lg text-white lg:py-sp-xxl">
+    <section id="live-metrics" className="relative overflow-hidden bg-primary pt-sp-sm pb-sp-lg text-white lg:pt-sp-reg lg:pb-sp-xxl">
       <div className="pointer-events-none absolute -left-32 top-1/3 h-[360px] w-[360px] rounded-full bg-cyber-blue-2/15 blur-[130px]" />
       <Container className="relative z-10">
         <div className="text-center">

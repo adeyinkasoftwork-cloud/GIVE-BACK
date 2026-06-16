@@ -61,8 +61,35 @@ function Card({ t, i, total, hovered, setHovered }) {
   );
 }
 
+// Mobile fan card — same animation as desktop, tap instead of hover
+function MobileCard({ t, i, total, tapped, setTapped }) {
+  const spread = 44;
+  const offset = (i - (total - 1) / 2) * spread;
+  const isTapped = tapped === i;
+  const light = t.style !== "white";
+
+  return (
+    <div
+      onClick={() => setTapped(isTapped ? null : i)}
+      className={`absolute left-1/2 top-1/2 w-[260px] cursor-pointer rounded-[24px] p-5 shadow-[0_20px_50px_rgba(13,35,43,0.18)] transition-all duration-500 ${STYLE[t.style]}`}
+      style={{
+        transform: `translate(-50%, -50%) translateX(${isTapped ? offset * 0.6 : offset}px) rotate(${isTapped ? 0 : t.rot}deg) scale(${isTapped ? 1.06 : 1})`,
+        zIndex: isTapped ? 100 : 10 + i,
+      }}
+    >
+      <Stars light={light} />
+      <p className="mt-4 font-body text-[14px] leading-[1.5]">{t.quote}</p>
+      <div className="mt-5 border-t border-current/15 pt-4">
+        <p className="font-saans text-[17px] font-bold">{t.name}</p>
+        <p className={`font-body text-[12px] ${light ? "text-white/70" : "text-body-copy"}`}>{t.role}</p>
+      </div>
+    </div>
+  );
+}
+
 export default function Partners() {
   const [hovered, setHovered] = useState(null);
+  const [tapped, setTapped] = useState(null);
 
   return (
     <section id="testimonials" className="relative overflow-hidden bg-pearl py-sp-lg lg:py-sp-xxl">
@@ -79,30 +106,20 @@ export default function Partners() {
               Testimonials
             </h2>
           </div>
-          <p className="font-body text-[14px] font-bold uppercase tracking-[1.5px] text-body-copy">
+          <p className="hidden font-body text-[14px] font-bold uppercase tracking-[1.5px] text-body-copy lg:block">
             Hover a card to bring it forward.
+          </p>
+          <p className="font-body text-[14px] font-bold uppercase tracking-[1.5px] text-body-copy lg:hidden">
+            Tap a card to bring it forward.
           </p>
         </div>
       </Container>
 
-      {/* Mobile: horizontal snap-scroll strip (hidden on lg+) */}
-      <div className="-mx-0 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 scrollbar-none lg:hidden">
-        {TESTIMONIALS.map((t, i) => {
-          const light = t.style !== "white";
-          return (
-            <div
-              key={i}
-              className={`w-[calc(100vw-56px)] max-w-[320px] shrink-0 snap-center rounded-[22px] p-5 shadow-[0_12px_40px_rgba(13,35,43,0.15)] ${STYLE[t.style]}`}
-            >
-              <Stars light={light} />
-              <p className="mt-3 font-body text-[14px] leading-[1.55]">{t.quote}</p>
-              <div className="mt-4 border-t border-current/15 pt-3">
-                <p className="font-saans text-[16px] font-bold">{t.name}</p>
-                <p className={`mt-0.5 font-body text-[12px] ${light ? "text-white/70" : "text-body-copy"}`}>{t.role}</p>
-              </div>
-            </div>
-          );
-        })}
+      {/* Mobile: fan deck (hidden on lg+) */}
+      <div className="relative mx-auto mt-sp-lg h-[400px] w-full lg:hidden">
+        {TESTIMONIALS.map((t, i) => (
+          <MobileCard key={i} t={t} i={i} total={TESTIMONIALS.length} tapped={tapped} setTapped={setTapped} />
+        ))}
       </div>
 
       {/* Desktop: fan deck (hidden below lg) */}
