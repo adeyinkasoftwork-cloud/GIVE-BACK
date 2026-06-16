@@ -63,7 +63,7 @@ function Card({ t, i, total, hovered, setHovered }) {
 
 // Mobile fan card — same animation as desktop, tap instead of hover
 function MobileCard({ t, i, total, tapped, setTapped }) {
-  const spread = 44;
+  const spread = 28;
   const offset = (i - (total - 1) / 2) * spread;
   const isTapped = tapped === i;
   const light = t.style !== "white";
@@ -71,17 +71,17 @@ function MobileCard({ t, i, total, tapped, setTapped }) {
   return (
     <div
       onClick={() => setTapped(isTapped ? null : i)}
-      className={`absolute left-1/2 top-1/2 w-[260px] cursor-pointer rounded-[24px] p-5 shadow-[0_20px_50px_rgba(13,35,43,0.18)] transition-all duration-500 ${STYLE[t.style]}`}
+      className={`absolute left-1/2 top-1/2 w-[min(82vw,260px)] cursor-pointer rounded-[20px] p-4 shadow-[0_20px_50px_rgba(13,35,43,0.18)] transition-all duration-500 ${STYLE[t.style]}`}
       style={{
-        transform: `translate(-50%, -50%) translateX(${isTapped ? offset * 0.6 : offset}px) rotate(${isTapped ? 0 : t.rot}deg) scale(${isTapped ? 1.06 : 1})`,
+        transform: `translate(-50%, -50%) translateX(${isTapped ? offset * 0.5 : offset}px) rotate(${isTapped ? 0 : t.rot}deg) scale(${isTapped ? 1.04 : 1})`,
         zIndex: isTapped ? 100 : 10 + i,
       }}
     >
       <Stars light={light} />
-      <p className="mt-4 font-body text-[14px] leading-[1.5]">{t.quote}</p>
-      <div className="mt-5 border-t border-current/15 pt-4">
-        <p className="font-saans text-[17px] font-bold">{t.name}</p>
-        <p className={`font-body text-[12px] ${light ? "text-white/70" : "text-body-copy"}`}>{t.role}</p>
+      <p className="mt-3 font-body text-[13px] leading-[1.5]">{t.quote}</p>
+      <div className="mt-4 border-t border-current/15 pt-3">
+        <p className="font-saans text-[15px] font-bold">{t.name}</p>
+        <p className={`font-body text-[11px] ${light ? "text-white/70" : "text-body-copy"}`}>{t.role}</p>
       </div>
     </div>
   );
@@ -116,7 +116,7 @@ export default function Partners() {
       </Container>
 
       {/* Mobile: fan deck (hidden on lg+) */}
-      <div className="relative mx-auto mt-sp-lg h-[400px] w-full lg:hidden">
+      <div className="relative mx-auto mt-sp-lg h-[380px] w-full overflow-hidden lg:hidden">
         {TESTIMONIALS.map((t, i) => (
           <MobileCard key={i} t={t} i={i} total={TESTIMONIALS.length} tapped={tapped} setTapped={setTapped} />
         ))}
