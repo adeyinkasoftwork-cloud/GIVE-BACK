@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Container from "./Container";
 
@@ -76,36 +76,23 @@ function SwapTile() {
 }
 
 function DexScreenerChart() {
-  const containerRef = useRef(null);
-  const [mounted, setMounted] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
+  // Fallback: remove skeleton after 5 s regardless, so it can never spin forever
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setMounted(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "200px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
+    const t = setTimeout(() => setLoaded(true), 5000);
+    return () => clearTimeout(t);
   }, []);
 
   return (
     <div
-      ref={containerRef}
       className="relative w-full overflow-hidden rounded-[14px]"
       style={{ height: "min(60vw, 480px)", minHeight: 280 }}
     >
-      {/* Skeleton — visible until iframe fires onLoad */}
+      {/* Skeleton overlay — sits on top until iframe fires onLoad (or 5 s fallback) */}
       {!loaded && (
         <div
-          className="absolute inset-0 flex flex-col gap-3 p-4"
+          className="pointer-events-none absolute inset-0 z-10 flex flex-col gap-3 p-4"
           style={{
             background:
               "linear-gradient(160deg, rgba(20,20,22,0.92) 0%, rgba(8,10,9,0.95) 55%, rgba(6,30,18,0.95) 100%)",
@@ -119,18 +106,16 @@ function DexScreenerChart() {
         </div>
       )}
 
-      {mounted && (
-        <iframe
-          src={DEXSCREENER_SRC}
-          title="GBACK/SOL DexScreener chart"
-          className="absolute inset-0 h-full w-full"
-          style={{ border: 0, opacity: loaded ? 1 : 0, transition: "opacity 0.3s" }}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          allow="clipboard-write"
-          onLoad={() => setLoaded(true)}
-        />
-      )}
+      {/* iframe always mounted — no scroll gate, no loading="lazy" */}
+      <iframe
+        src={DEXSCREENER_SRC}
+        title="GBACK/SOL DexScreener chart"
+        className="absolute inset-0 h-full w-full"
+        style={{ border: 0 }}
+        referrerPolicy="no-referrer-when-downgrade"
+        allow="clipboard-write"
+        onLoad={() => setLoaded(true)}
+      />
     </div>
   );
 }
