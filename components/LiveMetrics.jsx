@@ -96,9 +96,7 @@ function DexScreenerChart() {
           className="pointer-events-none absolute inset-0 z-10 flex flex-col gap-3 p-4"
           style={{
             background:
-              "linear-gradient(160deg, rgba(20,20,22,0.92) 0%, rgba(8,10,9,0.95) 55%, rgba(6,30,18,0.95) 100%)",
-            backdropFilter: "blur(22px) saturate(160%)",
-            WebkitBackdropFilter: "blur(22px) saturate(160%)",
+              "linear-gradient(160deg, #141416 0%, #080a09 55%, #061e12 100%)",
           }}
         >
           <div className="h-3 w-1/3 animate-pulse rounded-full bg-white/10" />
@@ -113,7 +111,7 @@ function DexScreenerChart() {
         title="GBACK/SOL DexScreener chart"
         className="absolute inset-0 h-full w-full"
         style={{ border: 0 }}
-        referrerPolicy="no-referrer-when-downgrade"
+        loading="eager"
         allow="clipboard-write"
         onLoad={() => setSkeleton(false)}
       />

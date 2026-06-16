@@ -61,27 +61,63 @@ function Card({ t, i, total, hovered, setHovered }) {
   );
 }
 
-// Mobile fan card — same animation as desktop, tap instead of hover
-function MobileCard({ t, i, total, tapped, setTapped }) {
-  const spread = 28;
-  const offset = (i - (total - 1) / 2) * spread;
-  const isTapped = tapped === i;
+// Mobile carousel — one card at a time, fully contained
+function MobileCarousel() {
+  const [index, setIndex] = useState(0);
+  const t = TESTIMONIALS[index];
   const light = t.style !== "white";
 
+  const prev = () => setIndex((index - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+  const next = () => setIndex((index + 1) % TESTIMONIALS.length);
+
   return (
-    <div
-      onClick={() => setTapped(isTapped ? null : i)}
-      className={`absolute left-1/2 top-1/2 w-[min(82vw,260px)] cursor-pointer rounded-[20px] p-4 shadow-[0_20px_50px_rgba(13,35,43,0.18)] transition-all duration-500 ${STYLE[t.style]}`}
-      style={{
-        transform: `translate(-50%, -50%) translateX(${isTapped ? offset * 0.5 : offset}px) rotate(${isTapped ? 0 : t.rot}deg) scale(${isTapped ? 1.04 : 1})`,
-        zIndex: isTapped ? 100 : 10 + i,
-      }}
-    >
-      <Stars light={light} />
-      <p className="mt-3 font-body text-[13px] leading-[1.5]">{t.quote}</p>
-      <div className="mt-4 border-t border-current/15 pt-3">
-        <p className="font-saans text-[15px] font-bold">{t.name}</p>
-        <p className={`font-body text-[11px] ${light ? "text-white/70" : "text-body-copy"}`}>{t.role}</p>
+    <div className="flex flex-col items-center gap-5 px-4">
+      {/* Card */}
+      <div
+        key={index}
+        className={`w-full max-w-[360px] rounded-[20px] p-5 shadow-[0_20px_50px_rgba(13,35,43,0.18)] transition-all duration-300 ${STYLE[t.style]}`}
+      >
+        <Stars light={light} />
+        <p className="mt-3 font-body text-[14px] leading-[1.6]">{t.quote}</p>
+        <div className="mt-4 border-t border-current/15 pt-3">
+          <p className="font-saans text-[16px] font-bold">{t.name}</p>
+          <p className={`font-body text-[12px] ${light ? "text-white/70" : "text-body-copy"}`}>{t.role}</p>
+        </div>
+      </div>
+
+      {/* Controls */}
+      <div className="flex items-center gap-5">
+        <button
+          onClick={prev}
+          aria-label="Previous testimonial"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-off-black/10 text-off-black transition-colors hover:bg-off-black/20 active:scale-95"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+
+        {/* Dot indicators */}
+        <div className="flex gap-2">
+          {TESTIMONIALS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              aria-label={`Go to testimonial ${i + 1}`}
+              className={`h-2 rounded-full transition-all duration-300 ${i === index ? "w-5 bg-off-black" : "w-2 bg-off-black/25"}`}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={next}
+          aria-label="Next testimonial"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-off-black/10 text-off-black transition-colors hover:bg-off-black/20 active:scale-95"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
       </div>
     </div>
   );
@@ -89,7 +125,6 @@ function MobileCard({ t, i, total, tapped, setTapped }) {
 
 export default function Partners() {
   const [hovered, setHovered] = useState(null);
-  const [tapped, setTapped] = useState(null);
 
   return (
     <section id="testimonials" className="relative overflow-hidden bg-pearl py-sp-lg lg:py-sp-xxl">
@@ -109,17 +144,12 @@ export default function Partners() {
           <p className="hidden font-body text-[14px] font-bold uppercase tracking-[1.5px] text-body-copy lg:block">
             Hover a card to bring it forward.
           </p>
-          <p className="font-body text-[14px] font-bold uppercase tracking-[1.5px] text-body-copy lg:hidden">
-            Tap a card to bring it forward.
-          </p>
         </div>
       </Container>
 
-      {/* Mobile: fan deck (hidden on lg+) */}
-      <div className="relative mx-auto mt-sp-lg h-[380px] w-full overflow-hidden lg:hidden">
-        {TESTIMONIALS.map((t, i) => (
-          <MobileCard key={i} t={t} i={i} total={TESTIMONIALS.length} tapped={tapped} setTapped={setTapped} />
-        ))}
+      {/* Mobile: single-card carousel (hidden on lg+) */}
+      <div className="mt-sp-lg lg:hidden">
+        <MobileCarousel />
       </div>
 
       {/* Desktop: fan deck (hidden below lg) */}
