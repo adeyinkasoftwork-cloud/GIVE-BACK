@@ -35,7 +35,7 @@ export default function GlobeSection() {
               poster="/cover/preview.png"
               controls
               playsInline
-              preload="metadata"
+              preload="none"
             />
           </div>
         </div>

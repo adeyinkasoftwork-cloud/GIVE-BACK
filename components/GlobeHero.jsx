@@ -1,13 +1,41 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import Container from "./Container";
 
 const Globe = dynamic(() => import("./Globe"), { ssr: false });
 
-export default function GlobeHero() {
+function GlobePlaceholder() {
   return (
-    <section id="globe" className="relative overflow-hidden bg-white py-sp-lg lg:py-sp-xxl">
+    <div className="mx-auto flex w-full max-w-[624px] items-center justify-center" style={{ height: 528 }}>
+      <div className="dotted-globe h-[336px] w-[336px] rounded-full opacity-30" />
+    </div>
+  );
+}
+
+export default function GlobeHero() {
+  const sectionRef = useRef(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setReady(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "400px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <section ref={sectionRef} id="globe" className="relative overflow-hidden bg-white py-sp-lg lg:py-sp-xxl">
       <div className="pointer-events-none absolute left-1/2 top-1/3 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-cyber-blue-2/10 blur-[100px] lg:h-[420px] lg:w-[420px] lg:blur-[130px]" />
       <Container className="relative z-10">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-sp-lg">
@@ -26,9 +54,9 @@ export default function GlobeHero() {
             </p>
           </div>
 
-          {/* Globe — full width on mobile */}
+          {/* Globe — only mounts when scrolled near */}
           <div className="w-full">
-            <Globe />
+            {ready ? <Globe /> : <GlobePlaceholder />}
           </div>
         </div>
       </Container>

@@ -141,7 +141,7 @@ export default function Hero() {
             className="h-auto w-full rounded-[14px]"
             controls
             playsInline
-            preload="metadata"
+            preload="none"
           >
             <source src="https://res.cloudinary.com/dyy3lxpoh/video/upload/v1781597022/video_1_under100_oyajqs.mp4" type="video/mp4" />
           </video>

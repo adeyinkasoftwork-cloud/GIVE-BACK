@@ -13,8 +13,6 @@ import EcosystemFund from "@/components/EcosystemFund";
 import Socials from "@/components/Socials";
 import Footer from "@/components/Footer";
 
-// Nested structure preserved per section, composed top to bottom in the
-// order specified. Each section is its own component (one per section).
 export default function Home() {
   return (
     <div className="page-wrapper overflow-x-hidden">

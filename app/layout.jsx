@@ -26,6 +26,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${abel.variable} ${dmSans.variable}`}>
       <head>
+        <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="preconnect" href="https://dexscreener.com" />
       </head>
       <body>
