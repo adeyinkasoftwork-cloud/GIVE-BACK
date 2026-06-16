@@ -32,6 +32,7 @@ function Row() {
               src={`/platforms/${name}.${EXT[name] || "png"}`}
               alt={name}
               fill
+              sizes="(max-width: 640px) 160px, 230px"
               className="object-contain"
             />
           </div>

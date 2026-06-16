@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 const IMAGES = Array.from({ length: 12 }, (_, i) => `/carousel/img-${i + 1}.webp`);
 
@@ -22,11 +23,12 @@ export default function ImageCarousel() {
               filter: isActive ? "saturate(1.05)" : "grayscale(1) brightness(0.78)",
             }}
           >
-            <img
+            <Image
               src={src}
               alt=""
-              className="absolute inset-0 h-full w-full"
-              style={{ objectFit: "cover" }}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              className="object-cover"
               loading="lazy"
             />
           </div>

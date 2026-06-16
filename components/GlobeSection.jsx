@@ -31,7 +31,7 @@ export default function GlobeSection() {
           <div className="w-full overflow-hidden rounded-[20px] lg:ml-auto lg:w-1/4">
             <video
               className="w-full rounded-[14px] object-cover"
-              src="/videos/video 2.mp4"
+              src="https://res.cloudinary.com/dyy3lxpoh/video/upload/v1781539851/video_2_sqmeyl.mp4"
               poster="/cover/preview.png"
               controls
               playsInline

@@ -44,7 +44,7 @@ module.exports = {
       fontFamily: {
         // keep the same token name "saans" so classes don't change;
         // point it at GIVEBACK's fonts (Abel for display, DM Sans body fallback)
-        saans: ["Abel", "'DM Sans'", "Arial", "sans-serif"],
+        saans: ["var(--font-abel)", "var(--font-dm-sans)", "Arial", "sans-serif"],
       },
       maxWidth: {
         container: "1340px",

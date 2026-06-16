@@ -143,7 +143,7 @@ export default function Hero() {
             playsInline
             preload="metadata"
           >
-            <source src="/videos/video 1.mp4" type="video/mp4" />
+            <source src="https://res.cloudinary.com/dyy3lxpoh/video/upload/v1781597022/video_1_under100_oyajqs.mp4" type="video/mp4" />
           </video>
         </div>
       </Container>
